@@ -10,10 +10,9 @@ html {
 }
 
 main {
-    padding-top: 80px; /* espacio por nav fixed */
+    padding-top: 80px;
 }
 
-/* NAV */
 .nav {
     position: fixed;
     top: 0;
@@ -66,7 +65,10 @@ main {
     color: #a74;
 }
 
-/* PORTADA */
+section {
+    scroll-margin-top: 90px;
+}
+
 .portada {
     height: 70vh;
     background: url("img/portada3.jpg") center/cover no-repeat;
@@ -107,7 +109,6 @@ main {
     background: #741;
 }
 
-/* TITULOS */
 .h2-titulo {
     text-align: center;
     margin: 30px 0;
@@ -115,24 +116,29 @@ main {
     font-size: 28px;
 }
 
-/* FIX PARA NAV FIXED */
-section {
-    scroll-margin-top: 90px;
-}
-
-/* FILTROS */
 .productos-filtros {
     text-align: center;
     margin-bottom: 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    font-family: inherit;
 }
 
 .filtro,
 .filtro-activo {
     padding: 5px 20px;
     border-radius: 15px;
-    border: none;
     margin: 0 10px;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.filtro {
+    background: #eee;
+    color: #000;
 }
 
 .filtro-activo {
@@ -145,7 +151,6 @@ section {
     color: #fff;
 }
 
-/* GRID */
 .grid-recientes {
     width: 60%;
     margin: auto;
@@ -190,5 +195,15 @@ section {
 
 .grid-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.18);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+}
+
+.frapuccinos-productos,
+.cafeCaliente-productos,
+.cafeFrio-productos {
+    display: none;
+}
+
+.frapuccinos-productos {
+    display: block;
 }
