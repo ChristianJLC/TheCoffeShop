@@ -74,7 +74,7 @@ section {
 .portada {
     width: 100%;
     height: 70vh;
-    background: url("/img/portada3.jpg") center/cover no-repeat;
+    background: url("/img/portadas/portadaInicio.jpg") center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: flex-start;
