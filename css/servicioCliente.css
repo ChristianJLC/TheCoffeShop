@@ -160,3 +160,81 @@ html {
     color: #333;
     font-size: 13px;
 }
+
+@media (max-width: 900px) {
+    .servicioCliente {
+        width: 70%;
+    }
+
+    .nav-a_img {
+        margin-left: 40px;
+    }
+
+    .nav-ul {
+        padding-right: 40px;
+    }
+
+    .contenedor-servicio {
+        gap: 20px;
+    }
+
+    .footer-contenedor {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav {
+        height: auto;
+        padding: 10px 0;
+        flex-direction: column;
+    }
+
+    .nav-a_img {
+        margin-left: 0;
+    }
+
+    .nav-ul {
+        padding-right: 0;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .servicioCliente {
+        width: 90%;
+        margin-top: 140px;
+    }
+
+    .servicioCliente h1 {
+        font-size: 22px;
+    }
+
+    .contenedor-servicio {
+        flex-direction: column;
+    }
+
+    .contenedor-servicio_img {
+        width: 100%;
+    }
+
+    .contenedor-servicio_info {
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .contenedor-servicio_info h2 {
+        font-size: 20px;
+    }
+
+    .footer-contenedor {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-derechoAutor {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}

@@ -63,44 +63,72 @@ html {
     color: #a74;
 }
 
-.portadaCompañia {
+.portadaNosotros {
     width: 45%;
     margin: auto;
     margin-top: 115px;
 }
 
-.portadaCompañia h1{
+.portadaNosotros h1{
     font-family: inherit;
     font-size: 28px;
     margin: 20px 0 15px 0;
     color: #333;
 }
 
-.portadaCompañia h2{
-    margin-top: 20px;
+.portadaNosotros p{
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
 }
 
-.portadaCompañia img {
+.contenedor-trabajaNosotros{
+    display: flex;
+}
+
+.contenedor-trabajaNosotros_img{
+    width: 50%;
+}
+
+.contenedor-trabajaNosotros_img img{
+    width: 100%;
+    border-radius: 8px;
+}
+
+.contenedor-trabajaNosotros_parrafo{
+    width: 50%;
+    margin: 25px 40px;
+    display: block;
+}
+
+.contenedor-trabajaNosotros_parrafo p{
+    font-family: inherit;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.portadaNosotros img{
     width: 100%;
     display: block;
-    margin: auto;
-    margin-top: 20px;
+    margin: 40px auto 0 auto;
+    border-radius: 8px;
 }
 
-.portadaCompañia_parrafo {
-    text-align: left;
-    line-height: 24px;
-    color: #333;
+.pregunta{
+    font-family: inherit;
+    text-align: center;
     margin-top: 20px;
+    color: #333;
 }
 
-.portadaCompañia_lista li{
-    text-align: left;
-    line-height: 24px;
-    color: #333;
+.respuesta{
+    font-family: inherit;
+    text-align: center;
     margin-top: 20px;
-    margin-left: 20px;
+    color: #333;
 }
+
 
 .footer {
     width: 100%;
@@ -152,7 +180,7 @@ html {
 }
 
 @media (max-width: 900px) {
-    .portadaCompañia {
+    .portadaNosotros {
         width: 70%;
     }
 
@@ -162,6 +190,14 @@ html {
 
     .nav-ul {
         padding-right: 40px;
+    }
+
+    .contenedor-trabajaNosotros {
+        gap: 20px;
+    }
+
+    .contenedor-trabajaNosotros_parrafo {
+        margin: 20px;
     }
 
     .footer-contenedor {
@@ -187,17 +223,35 @@ html {
         margin-top: 10px;
     }
 
-    .portadaCompañia {
+    .portadaNosotros {
         width: 90%;
         margin-top: 140px;
     }
 
-    .portadaCompañia h1 {
+    .portadaNosotros h1 {
         font-size: 22px;
+        text-align: center;
     }
 
-    .portadaCompañia h2 {
+    .contenedor-trabajaNosotros {
+        flex-direction: column;
+    }
+
+    .contenedor-trabajaNosotros_img,
+    .contenedor-trabajaNosotros_parrafo {
+        width: 100%;
+    }
+
+    .contenedor-trabajaNosotros_parrafo {
+        margin: 20px 0;
+    }
+
+    .pregunta {
         font-size: 18px;
+    }
+
+    .respuesta {
+        font-size: 15px;
     }
 
     .footer-contenedor {
