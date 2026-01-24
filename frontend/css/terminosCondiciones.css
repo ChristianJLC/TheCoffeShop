@@ -58,6 +58,21 @@ html {
     font-family: inherit;
 }
 
+.CartButton_quantity__3sdzT {
+    position: absolute;
+    background-color: #c82014;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: var(--font-weight-semibold);
+    font-size: 12px;
+    margin: -30px 0 0 9px;
+}
+
 .nav-ul a:hover,
 .nav-titulo:hover {
     color: #a74;
