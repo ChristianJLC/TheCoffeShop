@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="../../img/logo/coffeshop.png">
+    <title>The Coffe Shop</title>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+            <a class="nav-a" href="../index.html"><img class="nav-a_img" src="../../img/logo/coffeshop.png"
+                    alt="Coffe Shop">
+                <span class="nav-titulo">The Coffe Shop</span></a>
+            <ul class="nav-ul">
+                <li class="nav-ul_li"><a href="../index.html">Inicio</a></li>
+                <li class="nav-ul_li"><a href="#iniciarsesion">Iniciar Sesión</a></li>
+                <li class="nav-ul_li"><a href="#compra"><i class="fa-solid fa-bag-shopping"><span
+                                class="CartButton_quantity__3sdzT">0</span></i></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="estadoVacio">
+            <div class="portadaCarrito">
+                <h1>Carrito</h1>
+                <img src="../../img/carrito/carrito.png" alt="Carrito">
+                <h2>Comienza tu próximo pedido</h2>
+                <div class="portadaCarrito_parrafo">
+                    <p>Agrega alguna bebida o alimento favorito y aparecerán aquí.</p>
+                    <p>Tendrás las oportunidades de revisar antes de realizar el pago.</p>
+                    <a href="../index.html">Haz tu pedido</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="estadoLleno" class="cart-page">
+            <!-- Header (flecha + título) -->
+            <div class="cart-header">
+                <a href="../index.html" class="cart-back" aria-label="Volver">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <h1 class="cart-title">Carrito</h1>
+                <div></div>
+            </div>
+            <!-- Layout 2 columnas -->
+            <div class="cart-grid">
+                <!-- Columna izquierda -->
+                <div class="cart-left">
+                    <h2 class="cart-subtitle">Productos <span class="cart-count"></span></h2>
+                    <div class="cart-list">
+                        <!-- Item 1 -->
+                        <article class="cart-item">
+                            <div class="cart-item__img">
+                                <img src="" alt="Producto">
+                            </div>
+                            <div class="cart-item__info">
+                                <h3 class="cart-item__name"></h3>
+                                <p class="cart-item__price"></p>
+                            </div>
+                            <div class="cart-item__actions">
+                                <div class="qty">
+                                    <button type="button" class="qty__btn" aria-label="Eliminar">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                    <span class="qty__value"></span>
+                                    <button type="button" class="qty__btn" aria-label="Aumentar">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <!-- Columna derecha -->
+                <aside class="cart-right">
+                    <div class="note-card">
+                        <h2 class="cart-subtitle">Agregar recomendaciones</h2>
+                        <label class="note-label" for="notaPedido">¿Tienes alguna nota para el pedido?</label>
+                        <textarea id="notaPedido" class="note-textarea" maxlength="48"
+                            placeholder="Ingresa tus indicaciones"></textarea>
+                    </div>
+                    <div class="summary-card">
+                        <h2 class="cart-subtitle">Resumen del pedido</h2>
+                        <div class="cart-container">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span></span>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span></span>
+                            </div>
+                            <button class="pay-btn" type="button">Ir a pagar</button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+    <script src="../../js/carrito.js"></script>
+    <script src="../../js/carritoPage.js"></script>
+</body>
+
+</html>

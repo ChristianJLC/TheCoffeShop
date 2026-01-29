@@ -314,6 +314,7 @@ main {
 
 .modal-link {
     background: transparent;
+    text-decoration: none;
     border: none;
     color: #a74;
     font-weight: 700;

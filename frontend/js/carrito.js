@@ -17,9 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     actualizarBadgeNav();
 
-    // 🔥 cuando productos.js agregue algo, se actualiza al instante
     window.addEventListener("carritoActualizado", actualizarBadgeNav);
 
-    // 🔥 también se actualiza si cambias de pestaña/ventana
-    window.addEventListener("storage", actualizarBadgeNav);
+    window.addEventListener("storage", (e) => {
+        if (e.key === "carrito") actualizarBadgeNav();
+    });
+
+    /*window.addEventListener("storage", actualizarBadgeNav);*/
 });

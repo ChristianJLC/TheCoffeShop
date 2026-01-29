@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ====== CONTADOR + / - ======
     const btnPlus = document.getElementById("btn-plus");
     const btnMinus = document.getElementById("btn-minus");
     const inputCantidad = document.getElementById("cantidad");
@@ -7,13 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     btnPlus?.addEventListener("click", () => {
         inputCantidad.value = parseInt(inputCantidad.value, 10) + 1;
     });
-
     btnMinus?.addEventListener("click", () => {
         const valor = parseInt(inputCantidad.value, 10);
         if (valor > 1) inputCantidad.value = valor - 1;
     });
 
-    // ====== DATOS DEL PRODUCTO ======
+
     const btnAgregar = document.querySelector(".contenedor-producto_info_agregar");
 
     const productoNombre =
@@ -25,14 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const productoPrecioTexto =
         document.querySelector(".contenedor-producto_info span")?.textContent || "";
 
-    const productoImg =
+    const productoImgRel =
         document.querySelector(".contenedor-producto_img img")?.getAttribute("src") || "";
+
+    const productoImg = productoImgRel ? new URL(productoImgRel, window.location.href).href : "";
 
     const precioNumero = parseFloat(
         productoPrecioTexto.replace(",", ".").match(/(\d+(\.\d+)?)/)?.[0] || "0"
     );
 
-    // ====== MODAL ======
     const overlay = document.getElementById("modal-overlay");
     const btnClose = document.getElementById("modal-close");
     const btnSeguir = document.getElementById("btn-seguir");
@@ -58,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     btnClose?.addEventListener("click", cerrarModal);
     btnSeguir?.addEventListener("click", cerrarModal);
 
-    // ====== LOCALSTORAGE CARRITO ======
     function getCarrito() {
         return JSON.parse(localStorage.getItem("carrito") || "[]");
     }
@@ -67,12 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("carrito", JSON.stringify(carrito));
     }
 
-    // ====== AGREGAR AL CARRITO ======
     btnAgregar?.addEventListener("click", () => {
         const cantidad = parseInt(inputCantidad.value, 10);
         const carrito = getCarrito();
 
-        // id simple (luego será id real de BD)
         const id = productoNombre.toLowerCase().replace(/\s+/g, "-");
 
         const existente = carrito.find((p) => p.id === id);
@@ -92,16 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setCarrito(carrito);
 
-        // ✅ disparar evento para que carrito.js (y cualquier otro) actualice el badge si quieres
         window.dispatchEvent(new Event("carritoActualizado"));
 
-        // llenar modal
-        modalImg.src = productoImg;
-        modalImg.alt = productoNombre;
-        modalName.textContent = productoNombre;
-        modalDesc.textContent = productoDesc;
-        modalPrice.textContent = `S/ ${precioNumero.toFixed(2)}`;
-        modalBadge.textContent = cantidad;
+        if (modalImg) {
+            modalImg.src = productoImg;
+            modalImg.alt = productoNombre;
+        }
+        if (modalName) modalName.textContent = productoNombre;
+        if (modalDesc) modalDesc.textContent = productoDesc;
+        if (modalPrice) modalPrice.textContent = `S/ ${precioNumero.toFixed(2)}`;
+        if (modalBadge) modalBadge.textContent = cantidad;
 
         abrirModal();
     });
