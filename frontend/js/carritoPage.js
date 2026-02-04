@@ -10,6 +10,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const summaryRows = document.querySelectorAll("#estadoLleno .summary-row");
     const subtotalEl = summaryRows?.[0]?.querySelector("span:last-child") || null;
     const totalEl = document.querySelector("#estadoLleno .summary-total span:last-child");
+    // ===== Nota para el pedido (se pasa a checkout) =====
+    const notaPedido = document.getElementById("notaPedido");
+
+    function cargarNota() {
+        if (!notaPedido) return;
+        notaPedido.value = localStorage.getItem("checkoutNota") || "";
+    }
+
+    notaPedido?.addEventListener("input", () => {
+        localStorage.setItem("checkoutNota", notaPedido.value);
+    });
+
+
+    // ✅ Normaliza a /frontend/img/...
+    function normalizarImg(src) {
+        if (!src) return "";
+
+        if (src.startsWith("/frontend/img/")) return src;
+        if (src.startsWith("/img/")) return "/frontend" + src;
+
+        const idx = src.indexOf("/img/");
+        if (idx !== -1) return "/frontend" + src.slice(idx);
+
+        const idx2 = src.indexOf("img/");
+        if (idx2 !== -1) return "/frontend/" + src.slice(idx2);
+
+        const idx3 = src.indexOf("/frontend/img/");
+        if (idx3 !== -1) return src.slice(idx3);
+
+        return src;
+    }
 
     function getCarrito() {
         return JSON.parse(localStorage.getItem("carrito") || "[]");
@@ -43,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const carrito = getCarrito();
 
         mostrarEstado(carrito);
-
         if (carrito.length === 0) return;
 
         if (cartList) cartList.innerHTML = "";
@@ -52,9 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const article = document.createElement("article");
             article.className = "cart-item";
             article.dataset.id = item.id;
+
+            const img = normalizarImg(item.imagen || "");
+
             article.innerHTML = `
         <div class="cart-item__img">
-          <img src="${item.imagen || ""}" alt="${item.nombre || "Producto"}">
+          <img src="${img}" alt="${item.nombre || "Producto"}">
         </div>
 
         <div class="cart-item__info">
@@ -130,5 +163,28 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("storage", (e) => {
         if (e.key === "carrito") render();
     });
+
+    // ===== IR A PAGAR =====
+    // ===== Ir a pagar (redirige a checkout y guarda nota) =====
+    const btnIrPagar = document.querySelector(".pay-btn");
+
+    btnIrPagar?.addEventListener("click", () => {
+        const carrito = getCarrito();
+        if (!carrito.length) {
+            alert("Tu carrito está vacío.");
+            return;
+        }
+
+        // Guarda nota antes de ir al checkout
+        if (notaPedido) {
+            localStorage.setItem("checkoutNota", notaPedido.value || "");
+        }
+
+        window.location.href = "./checkout.html";
+    });
+
+
     render();
+    cargarNota();
 });
+

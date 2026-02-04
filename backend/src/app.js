@@ -1,20 +1,24 @@
 import express from "express";
 import cors from "cors";
-import { pool } from "./config/db.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const FRONTEND_DIR = path.join(__dirname, "../../frontend");
+app.use(express.static(FRONTEND_DIR));
+
 app.get("/", (req, res) => {
-    res.send("API Coffee Shop funcionando");
+    res.sendFile(path.join(FRONTEND_DIR, "vistas", "index.html"));
 });
 
-app.get("/test-db", async (req, res) => {
-    const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
-});
+app.get("/api/health", (req, res) => res.json({ ok: true }));
 
-app.listen(3000, () => {
-    console.log("Servidor activo en http://localhost:3000");
-});
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Backend corriendo en puerto", PORT));

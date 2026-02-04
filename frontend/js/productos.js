@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     btnPlus?.addEventListener("click", () => {
         inputCantidad.value = parseInt(inputCantidad.value, 10) + 1;
     });
+
     btnMinus?.addEventListener("click", () => {
         const valor = parseInt(inputCantidad.value, 10);
         if (valor > 1) inputCantidad.value = valor - 1;
     });
-
 
     const btnAgregar = document.querySelector(".contenedor-producto_info_agregar");
 
@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const precioNumero = parseFloat(
         productoPrecioTexto.replace(",", ".").match(/(\d+(\.\d+)?)/)?.[0] || "0"
     );
+
+    // ✅ IMPORTANTE: id real de la DB desde el HTML
+    const productoId = Number(btnAgregar?.dataset?.productoId || 0);
 
     const overlay = document.getElementById("modal-overlay");
     const btnClose = document.getElementById("modal-close");
@@ -69,25 +72,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const cantidad = parseInt(inputCantidad.value, 10);
         const carrito = getCarrito();
 
+        // si no pusiste data-producto-id en HTML, te avisará
+        if (!productoId || Number.isNaN(productoId)) {
+            alert("Falta data-producto-id en el botón Agregar (id real del producto).");
+            return;
+        }
+
+        // id interno que usas para encontrar en carrito (puede ser slug)
         const id = productoNombre.toLowerCase().replace(/\s+/g, "-");
 
-        const existente = carrito.find((p) => p.id === id);
+        const existente = carrito.find((p) => p.producto_id === productoId);
 
         if (existente) {
             existente.cantidad += cantidad;
         } else {
             carrito.push({
-                id,
+                producto_id: productoId, // ✅ CLAVE para backend
+                id,                       // opcional (tu slug)
                 nombre: productoNombre,
                 descripcion: productoDesc,
-                precio: precioNumero,
+                precio: precioNumero,     // este precio es solo "visual", el real lo valida el backend
                 imagen: productoImg,
                 cantidad,
             });
         }
 
         setCarrito(carrito);
-
         window.dispatchEvent(new Event("carritoActualizado"));
 
         if (modalImg) {

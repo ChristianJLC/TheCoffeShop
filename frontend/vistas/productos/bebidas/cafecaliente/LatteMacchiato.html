@@ -19,7 +19,7 @@
             <ul class="nav-ul">
                 <li class="nav-ul_li"><a href="../../../index.html">Inicio</a></li>
                 <li class="nav-ul_li"><a href="#iniciarsesion">Iniciar Sesión</a></li>
-                <li class="nav-ul_li"><a href="#compra"><i class="fa-solid fa-bag-shopping"></i><span
+                <li class="nav-ul_li"><a href="../../../compras/carrito.html"><i class="fa-solid fa-bag-shopping"></i><span
                             class="CartButton_quantity__3sdzT">0</span></a></li>
             </ul>
         </nav>
@@ -47,37 +47,40 @@
                                 </path>
                             </svg></button>
                     </div>
-                    <button class="contenedor-producto_info_agregar">Agregar al carrito</button>
+                    <button class="contenedor-producto_info_agregar" data-producto-id="15">
+                        Agregar
+                    </button>
+
                 </div>
             </div>
         </section>
     </main>
     <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
-            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-                <div class="modal-header">
-                    <h3 id="modal-title">Producto agregado al carrito</h3>
-                    <button class="modal-close" id="modal-close" type="button" aria-label="Cerrar">✕</button>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-header">
+                <h3 id="modal-title">Producto agregado al carrito</h3>
+                <button class="modal-close" id="modal-close" type="button" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div class="modal-card">
+                <div class="modal-img-wrap">
+                    <img id="modal-img" src="" alt="">
+                    <span class="modal-badge" id="modal-badge">1</span>
                 </div>
 
-                <div class="modal-card">
-                    <div class="modal-img-wrap">
-                        <img id="modal-img" src="" alt="">
-                        <span class="modal-badge" id="modal-badge">1</span>
-                    </div>
-
-                    <div class="modal-info">
-                        <h4 id="modal-name">Nombre producto</h4>
-                        <p class="modal-price" id="modal-price">S/ 0.00</p>
-                        <p class="modal-desc" id="modal-desc">Descripción</p>
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <a class="modal-link" id="btn-seguir" href="../../../index.html" type="button">Seguir comprando</a>
-                    <a class="modal-primary" id="btn-ir-carrito" href="#">Ir al carrito</a>
+                <div class="modal-info">
+                    <h4 id="modal-name">Nombre producto</h4>
+                    <p class="modal-price" id="modal-price">S/ 0.00</p>
+                    <p class="modal-desc" id="modal-desc">Descripción</p>
                 </div>
             </div>
+
+            <div class="modal-actions">
+                <a class="modal-link" id="btn-seguir" href="../../../index.html" type="button">Seguir comprando</a>
+                <a class="modal-primary" id="btn-ir-carrito" href="../../../compras/carrito.html">Ir al carrito</a>
+            </div>
         </div>
+    </div>
     <footer>
         <div class="footer">
             <div class="footer-contenedor">

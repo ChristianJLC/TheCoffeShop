@@ -389,3 +389,166 @@ main {
         justify-content: flex-start;
     }
 }
+
+
+/* =========================
+   RESPONSIVE (NAV igual a index)
+   + carrito bien en móvil
+   ========================= */
+
+@media (max-width: 768px) {
+
+    /* NAV igual al index */
+    .nav {
+        padding: 0 15px;
+    }
+
+    .nav-a_img {
+        margin-left: 0;
+        width: 40px;
+    }
+
+    .nav-ul {
+        padding-right: 0;
+        gap: 10px;
+        margin: auto;
+    }
+
+    .nav-ul li {
+        margin: 0 6px;
+    }
+
+    .nav-ul a {
+        font-size: 14px;
+    }
+
+    /* ESTADO VACÍO */
+    .portadaCarrito {
+        width: 92%;
+        margin-top: 25px;
+    }
+
+    .portadaCarrito img {
+        width: min(180px, 55%);
+    }
+
+    .portadaCarrito h1 {
+        font-size: 24px;
+    }
+
+    .portadaCarrito h2 {
+        font-size: 18px;
+    }
+
+    .portadaCarrito_parrafo {
+        line-height: 22px;
+    }
+
+    .portadaCarrito_parrafo a {
+        width: min(360px, 90%);
+        padding: 10px 18px;
+    }
+
+    /* CARRITO LLENO */
+    .cart-page {
+        width: 92%;
+        padding: 25px 0 20px;
+    }
+
+    .cart-title {
+        font-size: 24px;
+    }
+
+    .cart-item {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    /* Imagen un poco más grande y centrada */
+    .cart-item__img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .cart-item__img img {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+    }
+
+    .cart-item__name {
+        font-size: 16px;
+    }
+
+    .cart-item__price {
+        font-size: 16px;
+    }
+
+    .qty {
+        min-width: 130px;
+        padding: 10px 10px;
+        gap: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* NAV igual al index */
+    .nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .nav-a {
+        justify-content: center;
+    }
+
+    .nav-ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0;
+        margin: auto;
+    }
+
+    .nav-ul li {
+        margin: 4px 8px;
+    }
+
+    /* header carrito */
+    .cart-header {
+        grid-template-columns: 36px 1fr 36px;
+        margin-bottom: 18px;
+    }
+
+    /* items: que no “salten” raro */
+    .cart-item {
+        grid-template-columns: 72px 1fr;
+        border-radius: 14px;
+    }
+
+    .cart-item__actions {
+        grid-column: 1 / -1;
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    .qty {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .note-textarea {
+        min-height: 140px;
+    }
+
+    .cart-container {
+        padding: 14px;
+    }
+
+    .pay-btn {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+}

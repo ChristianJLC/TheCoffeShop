@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../css/checkout.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="icon" type="image/png" href="../../img/logo/coffeshop.png" />
+    <title>The Coffe Shop</title>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+            <a class="nav-a" href="../index.html">
+                <img class="nav-a_img" src="../../img/logo/coffeshop.png" alt="Coffe Shop">
+                <span class="nav-titulo">The Coffe Shop</span>
+            </a>
+
+            <ul class="nav-ul">
+                <li class="nav-ul_li"><a href="../index.html">Inicio</a></li>
+                <li class="nav-ul_li"><a href="#iniciarsesion">Iniciar Sesión</a></li>
+                <li class="nav-ul_li">
+                    <a href="../compras/carrito.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="CartButton_quantity__3sdzT">0</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="checkout">
+        <div class="checkout__wrap">
+
+            <!-- TOP -->
+            <div class="checkout__top">
+                <a class="checkout__back" href="../compras/carrito.html" aria-label="Volver">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+
+                <h1 class="checkout__title">Checkout</h1>
+
+                <div></div>
+            </div>
+
+            <div class="checkout__grid">
+
+                <!-- IZQUIERDA -->
+                <section class="checkout__left">
+
+                    <!-- STEPPER -->
+                    <div class="stepper" aria-label="Progreso del checkout">
+                        <div class="stepper-item is-active" data-step="1">
+                            <div class="stepper-item__circle">1</div>
+                            <div class="stepper-item__label">Cliente</div>
+                        </div>
+
+                        <div class="stepper-line"></div>
+
+                        <div class="stepper-item" data-step="2">
+                            <div class="stepper-item__circle">2</div>
+                            <div class="stepper-item__label">Entrega</div>
+                        </div>
+
+                        <div class="stepper-line"></div>
+
+                        <div class="stepper-item" data-step="3">
+                            <div class="stepper-item__circle">3</div>
+                            <div class="stepper-item__label">Pago</div>
+                        </div>
+                    </div>
+
+                    <!-- PASOS -->
+                    <div class="steps">
+
+                        <!-- PASO 1 -->
+                        <div class="step is-active" id="paso-1">
+                            <h2 class="step__title">Datos Personales</h2>
+
+                            <div class="form-grid">
+                                <div class="field">
+                                    <label class="field__label" for="nombre">Nombre</label>
+                                    <input class="field__input" id="nombre" type="text"
+                                        placeholder="Ingresar tus nombres">
+                                </div>
+
+                                <div class="field">
+                                    <label class="field__label" for="apellido">Apellido</label>
+                                    <input class="field__input" id="apellido" type="text"
+                                        placeholder="Ingresar tus apellidos">
+                                </div>
+
+                                <div class="field">
+                                    <label class="field__label" for="celular">Celular *</label>
+                                    <input class="field__input" id="celular" type="tel"
+                                        placeholder="Ingresar número de Celular">
+                                </div>
+
+                                <div class="field">
+                                    <label class="field__label" for="correo">Correo electrónico</label>
+                                    <input class="field__input" id="correo" type="email"
+                                        placeholder="Ingresar correo electrónico">
+                                </div>
+                            </div>
+
+                            <p class="helper">* Todos los campos con asterisco son obligatorios</p>
+
+                            <h2 class="step__title" style="margin-top:18px;">Comprobante de pago</h2>
+
+                            <div class="field">
+                                <label class="field__label" for="comprobante">Selecciona tu comprobante</label>
+                                <select class="field__select" id="comprobante">
+                                    <option>Boleta electrónica</option>
+                                    <option>Factura</option>
+                                </select>
+
+                                <label class="field__label" for="documento">Tipo de documento</label>
+                                <select class="field__select" id="documento">
+                                    <option>DNI</option>
+                                    <option>CE</option>
+                                </select>
+
+                                <label class="field__label" for="numero-documento">Número de documento</label>
+                                <input class="field__input" id="numero-documento" type="text"
+                                    placeholder="Ingresar número de documento">
+                            </div>
+
+                            <div class="step__actions">
+                                <button class="btn btn-primary js-next" type="button" data-next="2">Continuar</button>
+                            </div>
+                        </div>
+
+                        <!-- PASO 2 -->
+                        <div class="step" id="paso-2">
+                            <h2 class="step__title">Detalle de la entrega</h2>
+
+                            <div class="card-soft">
+                                <div class="delivery">
+                                    <div class="delivery__icon">
+                                        <i class="fa-solid fa-store"></i>
+                                    </div>
+                                    <div class="delivery__text">
+                                        <div class="delivery__top">Recojo en tienda</div>
+                                        <div class="delivery__store"> The Coffe Shop - Mega Plaza Chimbote</div>
+                                        <div class="delivery__sub">
+                                            <i class="fa-regular fa-clock"></i>
+                                            Estás aproximadamente a 48 min de la tienda
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 class="step__title" style="margin-top:18px;">Comentarios del cliente</h2>
+
+                            <div class="field">
+                                <label class="field__label" for="comentarios">¿Tienes alguna nota para el
+                                    pedido?</label>
+                                <textarea class="field__textarea" id="comentarios" maxlength="48"
+                                    placeholder="Escribe una nota..."></textarea>
+                                <div class="counter" id="counterNota">0/48</div>
+                            </div>
+
+                            <div class="step__actions step__actions--between">
+                                <button class="btn btn-ghost js-prev" type="button" data-prev="1">Atrás</button>
+                                <button class="btn btn-primary js-next" type="button" data-next="3">Continuar</button>
+                            </div>
+                        </div>
+
+                        <!-- PASO 3 -->
+                        <div class="step" id="paso-3">
+                            <h2 class="step__title">Método de pago</h2>
+
+                            <div class="pay-method">
+                                <label class="radio-card">
+                                    <input type="radio" name="pago" id="pagoTarjeta">
+                                    <span class="radio-card__body">
+                                        <span class="radio-card__title">
+                                            <i class="fa-regular fa-credit-card"></i>
+                                            Paga en línea con tu tarjeta de crédito o débito
+                                        </span>
+                                        <span class="radio-card__sub">
+                                            <i class="fa-regular fa-circle-check"></i>
+                                            Pago 100% seguro con el respaldo de Niubiz
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <!-- OCULTO HASTA MARCAR EL RADIO -->
+                            <div class="pay-details" id="payDetails">
+                                <div class="form-grid" style="margin-top:16px;">
+                                    <div class="field field--full">
+                                        <label class="field__label" for="tarjeta">Número de tarjeta</label>
+                                        <input class="field__input" id="tarjeta" type="text"
+                                            placeholder="Ingresa número de tarjeta">
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="field__label" for="nomtarjeta">Nombre (Como figura en la
+                                            tarjeta)</label>
+                                        <input class="field__input" id="nomtarjeta" type="text"
+                                            placeholder="Ingresa nombre">
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="field__label" for="apetarjeta">Apellido (Como figura en la
+                                            tarjeta)</label>
+                                        <input class="field__input" id="apetarjeta" type="text"
+                                            placeholder="Ingresa apellido">
+                                    </div>
+                                    <div class="field">
+                                        <label class="field__label" for="ventarjeta">Vencimiento (MM/AA)</label>
+                                        <input class="field__input" id="ventarjeta" type="text"
+                                            placeholder="MM/AA">
+                                    </div>
+                                    <div class="field">
+                                        <label class="field__label" for="codtarjeta">Código de seguridad (CVV)</label>
+                                        <input class="field__input" id="codtarjeta" type="text"
+                                            placeholder="CVV">
+                                    </div>
+                                </div>
+
+                                <div class="checks">
+                                    <label class="check">
+                                        <input type="checkbox" id="chkDatos">
+                                        <span>Acepto el tratamiento de mis datos personales...</span>
+                                    </label>
+                                    <label class="check">
+                                        <input type="checkbox" id="chkTerminos">
+                                        <span>He leído y acepto los Términos y Condiciones...</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="step__actions step__actions--between">
+                                <button class="btn btn-ghost js-prev" type="button" data-prev="2">Atrás</button>
+                                <button class="btn btn-primary" type="button" id="btnPagar">Pagar</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+
+                <!-- DERECHA -->
+                <aside class="checkout__right">
+                    <div class="summary">
+                        <h2 class="summary__title">Resumen de pedido</h2>
+
+                        <!-- SE LLENA POR JS -->
+                        <div class="summary__items" id="summaryItems"></div>
+
+                        <div class="summary__totals">
+                            <div class="sum-row">
+                                <span id="sumLabelSubtotal">Subtotal (0 productos)</span>
+                                <span id="sumSubtotal">S/ 0.00</span>
+                            </div>
+
+                            <div class="sum-row">
+                                <span>Delivery</span>
+                                <span id="sumDelivery">S/ 0.00</span>
+                            </div>
+
+                            <div class="sum-row sum-row--total">
+                                <span>Total</span>
+                                <span id="sumTotal">S/ 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="../../js/carrito.js"></script>
+    <script src="../../js/checkout.js"></script>
+</body>
+</html>
