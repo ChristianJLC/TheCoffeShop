@@ -179,10 +179,6 @@ main {
     margin: 0;
 }
 
-/*InputNumber_inputNumber__gdu7Y input[type=number] {
-    -moz-appearance: textfield;
-}*/
-
 .contenedor-producto_info_agregar {
     width: 200px;
     padding: 12px;
@@ -195,8 +191,6 @@ main {
     transition: 0.3s
 }
 
-
-/* ===== MODAL ===== */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -342,12 +336,6 @@ main {
     filter: brightness(0.95);
 }
 
-
-
-
-
-
-
 .contenedor-producto_info_agregar:hover {
     background-color: #741;
 }
@@ -401,14 +389,8 @@ main {
     font-size: 13px;
 }
 
-/* =========================
-   RESPONSIVE (igual a index)
-   + producto centrado en móvil
-   ========================= */
-
 @media (max-width: 768px) {
 
-    /* NAV igual al index */
     .nav {
         padding: 0 15px;
     }
@@ -430,7 +412,6 @@ main {
         font-size: 14px;
     }
 
-    /* FOOTER igual al index */
     .footer-contenedor {
         flex-direction: column;
         align-items: center;
@@ -450,7 +431,6 @@ main {
         margin-bottom: 20px;
     }
 
-    /* PRODUCTO: apilar y centrar */
     .contenedor-producto {
         width: 95%;
         margin-top: 30px;
@@ -466,7 +446,6 @@ main {
         justify-content: center;
     }
 
-    /* imagen más pequeña */
     .contenedor-producto_img img {
         width: min(320px, 90%);
         border-radius: 14px;
@@ -505,7 +484,6 @@ main {
 
 @media (max-width: 480px) {
 
-    /* NAV igual al index */
     .nav {
         flex-direction: column;
         height: auto;
@@ -528,7 +506,6 @@ main {
         margin: 4px 8px;
     }
 
-    /* PRODUCTO: aún más compacto */
     .contenedor-producto_img img {
         width: min(280px, 92%);
     }
@@ -537,7 +514,6 @@ main {
         width: min(320px, 92%);
     }
 
-    /* Modal cómodo en móvil */
     .modal-actions {
         flex-direction: column;
         align-items: stretch;
@@ -556,7 +532,6 @@ main {
 
 @media (min-width: 600px) and (max-width: 900px) {
 
-    /* (En producto no hay grid, pero mantenemos el patrón del index) */
     .contenedor-producto {
         width: 85%;
     }

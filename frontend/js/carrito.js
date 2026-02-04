@@ -23,5 +23,4 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "carrito") actualizarBadgeNav();
     });
 
-    /*window.addEventListener("storage", actualizarBadgeNav);*/
 });

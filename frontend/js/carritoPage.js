@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const summaryRows = document.querySelectorAll("#estadoLleno .summary-row");
     const subtotalEl = summaryRows?.[0]?.querySelector("span:last-child") || null;
     const totalEl = document.querySelector("#estadoLleno .summary-total span:last-child");
-    // ===== Nota para el pedido (se pasa a checkout) =====
+
     const notaPedido = document.getElementById("notaPedido");
 
     function cargarNota() {
@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // ✅ Normaliza a /frontend/img/...
     function normalizarImg(src) {
         if (!src) return "";
 
@@ -164,8 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "carrito") render();
     });
 
-    // ===== IR A PAGAR =====
-    // ===== Ir a pagar (redirige a checkout y guarda nota) =====
     const btnIrPagar = document.querySelector(".pay-btn");
 
     btnIrPagar?.addEventListener("click", () => {
@@ -175,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Guarda nota antes de ir al checkout
         if (notaPedido) {
             localStorage.setItem("checkoutNota", notaPedido.value || "");
         }

@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         productoPrecioTexto.replace(",", ".").match(/(\d+(\.\d+)?)/)?.[0] || "0"
     );
 
-    // ✅ IMPORTANTE: id real de la DB desde el HTML
     const productoId = Number(btnAgregar?.dataset?.productoId || 0);
 
     const overlay = document.getElementById("modal-overlay");
@@ -72,13 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const cantidad = parseInt(inputCantidad.value, 10);
         const carrito = getCarrito();
 
-        // si no pusiste data-producto-id en HTML, te avisará
+        
         if (!productoId || Number.isNaN(productoId)) {
             alert("Falta data-producto-id en el botón Agregar (id real del producto).");
             return;
         }
 
-        // id interno que usas para encontrar en carrito (puede ser slug)
+       
         const id = productoNombre.toLowerCase().replace(/\s+/g, "-");
 
         const existente = carrito.find((p) => p.producto_id === productoId);
@@ -87,11 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
             existente.cantidad += cantidad;
         } else {
             carrito.push({
-                producto_id: productoId, // ✅ CLAVE para backend
-                id,                       // opcional (tu slug)
+                producto_id: productoId, 
+                id,                       
                 nombre: productoNombre,
                 descripcion: productoDesc,
-                precio: precioNumero,     // este precio es solo "visual", el real lo valida el backend
+                precio: precioNumero,     
                 imagen: productoImg,
                 cantidad,
             });

@@ -177,7 +177,6 @@ html {
 }
 
 @media (max-width: 600px) {
-    /* NAV */
     .nav {
         height: auto;
         padding: 10px 0;
@@ -194,7 +193,6 @@ html {
         margin-top: 10px;
     }
 
-    /* CONTENIDO */
     .portadaCompañia {
         width: 90%;
         margin-top: 140px;
@@ -208,7 +206,6 @@ html {
         font-size: 18px;
     }
 
-    /* FOOTER */
     .footer-contenedor {
         flex-direction: column;
         text-align: center;

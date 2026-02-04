@@ -136,14 +136,12 @@ main {
     background-color: #741;
 }
 
-/* ====== CARRITO LLENO ====== */
 .cart-page {
     width: 88%;
     margin: 0 auto;
     padding: 40px 0 30px;
 }
 
-/* header */
 .cart-header {
     display: grid;
     grid-template-columns: 40px 1fr 40px;
@@ -174,7 +172,6 @@ main {
     text-align: center;
 }
 
-/* grid 2 columnas */
 .cart-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
@@ -182,7 +179,6 @@ main {
     align-items: start;
 }
 
-/* títulos */
 .cart-subtitle {
     font-family: inherit;
     margin: 0 0 16px;
@@ -194,14 +190,12 @@ main {
     color: #333;
 }
 
-/* lista */
 .cart-list {
     display: flex;
     flex-direction: column;
     gap: 22px;
 }
 
-/* item */
 .cart-item {
     background: #fff;
     border: 1px solid #d9d9d9;
@@ -213,7 +207,6 @@ main {
     align-items: center;
 }
 
-/* imagen + botón editar */
 .cart-item__img {
     position: relative;
     width: 90px;
@@ -231,8 +224,6 @@ main {
     object-fit: cover;
     border-radius: 10px;
 }
-
-/* info */
 
 .cart-container {
     border: 1px solid #d9d9d9;
@@ -256,7 +247,6 @@ main {
     font-size: 18px;
 }
 
-/* acciones derecha (cantidad) */
 .cart-item__actions {
     display: flex;
     justify-content: flex-end;
@@ -296,7 +286,6 @@ main {
     text-align: center;
 }
 
-/* derecha */
 .cart-right {
     display: flex;
     flex-direction: column;
@@ -325,7 +314,6 @@ main {
     border-color: #0b6b4f;
 }
 
-/* resumen */
 .summary-row {
     display: flex;
     justify-content: space-between;
@@ -371,7 +359,6 @@ main {
     background-color: #741;
 }
 
-/* responsive */
 @media (max-width: 1050px) {
     .cart-grid {
         grid-template-columns: 1fr;
@@ -390,15 +377,8 @@ main {
     }
 }
 
-
-/* =========================
-   RESPONSIVE (NAV igual a index)
-   + carrito bien en móvil
-   ========================= */
-
 @media (max-width: 768px) {
 
-    /* NAV igual al index */
     .nav {
         padding: 0 15px;
     }
@@ -422,7 +402,6 @@ main {
         font-size: 14px;
     }
 
-    /* ESTADO VACÍO */
     .portadaCarrito {
         width: 92%;
         margin-top: 25px;
@@ -449,7 +428,6 @@ main {
         padding: 10px 18px;
     }
 
-    /* CARRITO LLENO */
     .cart-page {
         width: 92%;
         padding: 25px 0 20px;
@@ -464,7 +442,6 @@ main {
         gap: 12px;
     }
 
-    /* Imagen un poco más grande y centrada */
     .cart-item__img {
         width: 80px;
         height: 80px;

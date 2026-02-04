@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // =========================
-    // HELPERS (dinero / storage)
-    // =========================
     function money(value) {
         const n = Number(value || 0);
         return `S/ ${n.toFixed(2)}`;
@@ -15,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Normaliza rutas de imagen a /img/... (igual a lo que hiciste antes)
+
     function normalizarImg(src) {
         if (!src) return "";
 
@@ -35,9 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // =========================
-    // RESUMEN (checkout right)
-    // =========================
+
     const summaryItems = document.getElementById("summaryItems");
     const sumLabelSubtotal = document.getElementById("sumLabelSubtotal");
     const sumSubtotal = document.getElementById("sumSubtotal");
@@ -49,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!summaryItems) return;
 
-        // Si carrito vacío
+
         if (!carrito.length) {
             summaryItems.innerHTML = `<div class="summary-empty">Tu carrito está vacío.</div>`;
             if (sumLabelSubtotal) sumLabelSubtotal.textContent = `Subtotal (0 productos)`;
@@ -59,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Render items
+
         summaryItems.innerHTML = carrito
             .map((item) => {
                 const nombre = item.nombre || "Producto";
@@ -86,14 +81,14 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .join("");
 
-        // Totales
+
         const cantidadProductos = carrito.reduce((acc, item) => acc + Number(item.cantidad || 1), 0);
         const subtotal = carrito.reduce(
             (acc, item) => acc + Number(item.precio || 0) * Number(item.cantidad || 1),
             0
         );
 
-        const delivery = 0; // por ahora fijo (luego si quieres lo hacemos dinámico)
+        const delivery = 0;
         const total = subtotal + delivery;
 
         if (sumLabelSubtotal) sumLabelSubtotal.textContent = `Subtotal (${cantidadProductos} productos)`;
@@ -102,18 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (sumTotal) sumTotal.textContent = money(total);
     }
 
-    // Render inicial del resumen
+
     renderResumen();
 
-    // Si vienes del carrito y cambian cantidades, re-render:
+
     window.addEventListener("carritoActualizado", renderResumen);
     window.addEventListener("storage", (e) => {
         if (e.key === "carrito") renderResumen();
     });
 
-    // =========================
-    // REFERENCIAS PASOS
-    // =========================
+
     const steps = [
         document.getElementById("paso-1"),
         document.getElementById("paso-2"),
@@ -126,39 +119,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnNexts = document.querySelectorAll(".js-next");
     const btnPrevs = document.querySelectorAll(".js-prev");
 
-    // Inputs paso 1
+
     const nombre = document.getElementById("nombre");
     const apellido = document.getElementById("apellido");
     const celular = document.getElementById("celular");
     const correo = document.getElementById("correo");
     const comprobante = document.getElementById("comprobante");
 
-    // Paso 2 textarea + contador
+
     const comentarios = document.getElementById("comentarios");
     const counter = document.getElementById("counterNota") || document.querySelector(".counter");
 
-    // Paso 3 pago
+
     const pagoRadio = document.getElementById("pagoTarjeta") || document.querySelector('input[name="pago"]');
     const payDetails = document.getElementById("payDetails") || document.querySelector(".pay-details");
     const btnPagar = document.getElementById("btnPagar");
     const chkDatos = document.getElementById("chkDatos");
     const chkTerminos = document.getElementById("chkTerminos");
 
-    let currentStep = 1; // 1..3
+    let currentStep = 1;
 
-    // =========================
-    // UI Stepper + Steps
-    // =========================
+
     function setActiveStep(stepNumber) {
         currentStep = stepNumber;
 
-        // mostrar/ocultar pasos
         steps.forEach((stepEl, idx) => {
             if (!stepEl) return;
             stepEl.classList.toggle("is-active", idx === stepNumber - 1);
         });
 
-        // bolitas
+
         stepperItems.forEach((item, idx) => {
             item.classList.remove("is-active", "is-done");
             const stepIndex = idx + 1;
@@ -167,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (stepIndex === stepNumber) item.classList.add("is-active");
         });
 
-        // barras (líneas)
         stepperLines.forEach((lineEl, idx) => {
             lineEl.classList.toggle("is-done", idx + 1 < stepNumber);
         });
@@ -177,9 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         steps[stepNumber - 1]?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    // =========================
-    // Validación (Paso 1)
-    // =========================
+
     function showFieldError(input, message) {
         if (!input) return;
         input.style.borderColor = "#c82014";
@@ -237,9 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return ok;
     }
 
-    // =========================
-    // Paso 2: contador nota
-    // =========================
     function updateCounter() {
         if (!comentarios || !counter) return;
         counter.textContent = `${comentarios.value.length}/48`;
@@ -254,14 +238,10 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("checkoutNota", comentarios.value);
     });
 
-    // =========================
-    // Paso 3: pago oculto
-    // =========================
     function syncPagoUI() {
         if (!pagoRadio || !payDetails) return;
         payDetails.classList.toggle("is-open", !!pagoRadio.checked);
 
-        // (Opcional) si quieres deshabilitar pagar hasta aceptar checks:
         if (btnPagar) {
             const okChecks = (!chkDatos || chkDatos.checked) && (!chkTerminos || chkTerminos.checked);
             btnPagar.disabled = !pagoRadio.checked || !okChecks;
@@ -270,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // inicia desmarcado
+
     if (pagoRadio) pagoRadio.checked = false;
     syncPagoUI();
 
@@ -278,9 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
     chkDatos?.addEventListener("change", syncPagoUI);
     chkTerminos?.addEventListener("change", syncPagoUI);
 
-    // =========================
-    // NEXT / PREV
-    // =========================
     btnNexts.forEach((btn) => {
         btn.addEventListener("click", () => {
             const next = parseInt(btn.dataset.next, 10);
@@ -309,9 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // =========================
-    // PAGAR (por ahora demo)
-    // =========================
     btnPagar?.addEventListener("click", async () => {
         const carrito = getCarrito();
         if (!carrito.length) {
@@ -329,13 +303,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // IMPORTANTE: el carrito debe tener producto_id real (de la tabla productos)
         const items = carrito.map((p) => ({
             producto_id: Number(p.producto_id),
             cantidad: Number(p.cantidad || 1),
         }));
 
-        // validación rápida por si falta producto_id
         const faltanIds = items.some((x) => !x.producto_id || Number.isNaN(x.producto_id));
         if (faltanIds) {
             alert("Error: Hay productos sin producto_id. Debes guardar el id real del producto en el carrito.");
@@ -347,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    usuario_id: null, // luego si haces login, manda el id real
+                    usuario_id: null,
                     items,
                 }),
             });
@@ -361,7 +333,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log("Pedido creado:", data);
 
-            // ✅ Total oficial calculado por DB
             alert(`Pedido #${data.pedido.id} creado. Total: S/ ${Number(data.total).toFixed(2)}`);
 
             // Aquí recién va Izipay:
@@ -375,6 +346,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // INICIO
+
     setActiveStep(1);
 });

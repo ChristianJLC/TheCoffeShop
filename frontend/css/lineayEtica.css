@@ -155,7 +155,6 @@ html {
 .portadaCompañia_boton {
     display: flex;
     justify-content: space-between;
-    /* pone los botones a los extremos */
     gap: 16px;
 }
 
@@ -255,7 +254,6 @@ html {
 }
 
 @media (max-width: 600px) {
-    /* NAV */
     .nav {
         height: auto;
         padding: 10px 0;
@@ -272,7 +270,6 @@ html {
         margin-top: 10px;
     }
 
-    /* CONTENIDO */
     .portadaCompañia {
         width: 90%;
         margin-top: 140px;
@@ -282,18 +279,15 @@ html {
         font-size: 22px;
     }
 
-    /* TEXTAREA */
     .portadaCompañia_textarea textarea {
         height: 140px;
     }
 
-    /* CHECKBOX */
     .portadaCompañia_aceptar {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    /* BOTONES */
     .portadaCompañia_boton {
         flex-direction: column;
     }
@@ -302,7 +296,6 @@ html {
         width: 100%;
     }
 
-    /* FOOTER */
     .footer-contenedor {
         flex-direction: column;
         text-align: center;
