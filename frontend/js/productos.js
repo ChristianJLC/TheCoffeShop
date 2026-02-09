@@ -23,10 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const productoPrecioTexto =
         document.querySelector(".contenedor-producto_info span")?.textContent || "";
 
-    const productoImgRel =
+    const productoImg =
         document.querySelector(".contenedor-producto_img img")?.getAttribute("src") || "";
-
-    const productoImg = productoImgRel ? new URL(productoImgRel, window.location.href).href : "";
 
     const precioNumero = parseFloat(
         productoPrecioTexto.replace(",", ".").match(/(\d+(\.\d+)?)/)?.[0] || "0"
@@ -71,13 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const cantidad = parseInt(inputCantidad.value, 10);
         const carrito = getCarrito();
 
-        
+
         if (!productoId || Number.isNaN(productoId)) {
             alert("Falta data-producto-id en el botón Agregar (id real del producto).");
             return;
         }
 
-       
+
         const id = productoNombre.toLowerCase().replace(/\s+/g, "-");
 
         const existente = carrito.find((p) => p.producto_id === productoId);
@@ -86,11 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
             existente.cantidad += cantidad;
         } else {
             carrito.push({
-                producto_id: productoId, 
-                id,                       
+                producto_id: productoId,
+                id,
                 nombre: productoNombre,
                 descripcion: productoDesc,
-                precio: precioNumero,     
+                precio: precioNumero,
                 imagen: productoImg,
                 cantidad,
             });

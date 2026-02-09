@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             article.className = "cart-item";
             article.dataset.id = item.id;
 
-            const img = normalizarImg(item.imagen || "");
+            const img = item.imagen || "";
 
             article.innerHTML = `
         <div class="cart-item__img">

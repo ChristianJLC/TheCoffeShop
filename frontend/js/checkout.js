@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const nombre = item.nombre || "Producto";
                 const precio = Number(item.precio || 0);
                 const cantidad = Number(item.cantidad || 1);
-                const img = normalizarImg(item.imagen || "");
+                const img = item.imagen || "";
 
                 const totalItem = precio * cantidad;
 
