@@ -22,7 +22,7 @@ const FRONTEND_DIR = path.join(__dirname, "../../frontend");
 app.use(express.static(FRONTEND_DIR));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(FRONTEND_DIR, "vistas", "index.html"));
+    res.redirect("/vistas/index.html");
 });
 
 app.get("/api/health", (req, res) => res.json({ ok: true }));
