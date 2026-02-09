@@ -2,14 +2,13 @@ import pkg from "pg";
 const { Pool } = pkg;
 
 export const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: String(process.env.DB_PASSWORD),
-    port: Number(process.env.DB_PORT),
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false, // requerido por Neon
+    },
 });
 
 pool
     .query("SELECT NOW()")
-    .then(() => console.log("PostgreSQL conectado ✅"))
+    .then(() => console.log("PostgreSQL conectado a Neon ✅"))
     .catch((err) => console.error("Error conectando a PostgreSQL:", err));
