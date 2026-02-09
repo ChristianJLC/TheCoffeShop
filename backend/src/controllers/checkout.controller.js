@@ -1,4 +1,6 @@
 import { pool } from "../config/db.js";
+import crypto from "crypto";
+
 
 function moneyNumber(v) {
     const n = Number(v || 0);
@@ -10,56 +12,61 @@ export async function validateCart(req, res) {
         const { items } = req.body;
 
         if (!Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({ ok: false, message: "Carrito vacío." });
-        }
-
-        const hasProductoId = items.every((it) => Number.isFinite(Number(it.producto_id)));
-
-        if (hasProductoId) {
-            const ids = items.map((it) => Number(it.producto_id));
-            const cantidadesMap = new Map(items.map((it) => [Number(it.producto_id), Number(it.cantidad || 1)]));
-
-            const { rows } = await pool.query(
-                `SELECT id, nombre, precio, imagen
-         FROM productos
-         WHERE id = ANY($1::int[])`,
-                [ids]
-            );
-
-            if (rows.length !== ids.length) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Uno o más productos no existen en la base de datos.",
-                });
-            }
-
-            const validatedItems = rows.map((p) => {
-                const cantidad = Math.max(1, Number(cantidadesMap.get(p.id) || 1));
-                const precioUnit = moneyNumber(p.precio);
-                return {
-                    producto_id: p.id,
-                    nombre: p.nombre,
-                    precio_unitario: precioUnit,
-                    cantidad,
-                    imagen: p.imagen,
-                    total_item: moneyNumber(precioUnit * cantidad),
-                };
-            });
-
-            const subtotal = moneyNumber(validatedItems.reduce((acc, it) => acc + it.total_item, 0));
-            const delivery = 0;
-            const total = moneyNumber(subtotal + delivery);
-
-            return res.json({
-                ok: true,
-                items: validatedItems,
-                subtotal,
-                delivery,
-                total,
+            return res.status(400).json({
+                ok: false,
+                message: "Carrito vacío.",
             });
         }
 
-        const subtotal = moneyNumber(validatedItems.reduce((acc, it) => acc + it.total_item, 0));
+        const hasProductoId = items.every((it) =>
+            Number.isFinite(Number(it.producto_id))
+        );
+
+        if (!hasProductoId) {
+            return res.status(400).json({
+                ok: false,
+                message: "Debes enviar producto_id numérico.",
+            });
+        }
+
+        const ids = items.map((it) => Number(it.producto_id));
+        const cantidadesMap = new Map(
+            items.map((it) => [
+                Number(it.producto_id),
+                Math.max(1, Number(it.cantidad || 1)),
+            ])
+        );
+
+        const { rows: productosDB } = await pool.query(
+            `SELECT id, nombre, precio, imagen
+       FROM productos
+       WHERE id = ANY($1::int[])`,
+            [ids]
+        );
+
+        if (productosDB.length !== ids.length) {
+            return res.status(400).json({
+                ok: false,
+                message: "Uno o más productos no existen en la base de datos.",
+            });
+        }
+
+        const validatedItems = productosDB.map((p) => {
+            const cantidad = cantidadesMap.get(p.id);
+            const precioUnit = moneyNumber(p.precio);
+            return {
+                producto_id: p.id,
+                nombre: p.nombre,
+                precio_unitario: precioUnit,
+                cantidad,
+                imagen: p.imagen,
+                total_item: moneyNumber(precioUnit * cantidad),
+            };
+        });
+
+        const subtotal = moneyNumber(
+            validatedItems.reduce((acc, it) => acc + it.total_item, 0)
+        );
         const delivery = 0;
         const total = moneyNumber(subtotal + delivery);
 
@@ -69,36 +76,49 @@ export async function validateCart(req, res) {
             subtotal,
             delivery,
             total,
-            warning: "Estás validando por nombre. Cambia a producto_id lo antes posible.",
         });
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ ok: false, message: "Error en validateCart." });
+        return res.status(500).json({
+            ok: false,
+            message: "Error en validateCart.",
+        });
     }
 }
 
+
 export async function createOrder(req, res) {
-    const client = await pool.connect();
     try {
-        const { items, usuario_id = null } = req.body;
+        const { items, usuario_id = null, customer = {}, note = null } = req.body;
 
         if (!Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({ ok: false, message: "Carrito vacío." });
+            return res.status(400).json({
+                ok: false,
+                message: "Carrito vacío.",
+            });
         }
 
-        const hasProductoId = items.every((it) => Number.isFinite(Number(it.producto_id)));
+        const hasProductoId = items.every((it) =>
+            Number.isFinite(Number(it.producto_id))
+        );
+
         if (!hasProductoId) {
             return res.status(400).json({
                 ok: false,
-                message: "Para crear pedido debes enviar producto_id numérico.",
+                message: "Debes enviar producto_id numérico.",
             });
         }
 
         const ids = items.map((it) => Number(it.producto_id));
-        const cantidadesMap = new Map(items.map((it) => [Number(it.producto_id), Number(it.cantidad || 1)]));
+        const cantidadesMap = new Map(
+            items.map((it) => [
+                Number(it.producto_id),
+                Math.max(1, Number(it.cantidad || 1)),
+            ])
+        );
 
-        const { rows: productosDB } = await client.query(
-            `SELECT id, precio
+        const { rows: productosDB } = await pool.query(
+            `SELECT id, nombre, precio
        FROM productos
        WHERE id = ANY($1::int[])`,
             [ids]
@@ -112,53 +132,54 @@ export async function createOrder(req, res) {
         }
 
         const detalle = productosDB.map((p) => {
-            const cantidad = Math.max(1, Number(cantidadesMap.get(p.id) || 1));
+            const cantidad = cantidadesMap.get(p.id);
             const precioUnit = moneyNumber(p.precio);
             return {
                 producto_id: p.id,
+                nombre: p.nombre,
                 cantidad,
                 precio_unitario: precioUnit,
                 total_item: moneyNumber(precioUnit * cantidad),
             };
         });
 
-        const subtotal = moneyNumber(detalle.reduce((acc, it) => acc + it.total_item, 0));
+        const subtotal = moneyNumber(
+            detalle.reduce((acc, it) => acc + it.total_item, 0)
+        );
         const delivery = 0;
         const total = moneyNumber(subtotal + delivery);
 
-        await client.query("BEGIN");
+        //External reference (clave para Mercado Pago)
+        const external_reference = crypto.randomUUID();
 
-        const { rows: pedidoRows } = await client.query(
-            `INSERT INTO pedidos (usuario_id, total, estado, creado_en)
-       VALUES ($1, $2, $3, NOW())
-       RETURNING id, total, estado, creado_en`,
-            [usuario_id, total, "PENDIENTE_PAGO"]
+        //Guardar INTENT (temporal)
+        await pool.query(
+            `INSERT INTO checkout_intents
+       (external_reference, usuario_id, carrito_json, customer_json, note, status, total)
+       VALUES ($1, $2, $3::jsonb, $4::jsonb, $5, 'pending', $6)`,
+            [
+                external_reference,
+                usuario_id,
+                JSON.stringify({ items: detalle }),
+                JSON.stringify(customer),
+                note,
+                total,
+            ]
         );
-
-        const pedido = pedidoRows[0];
-
-        for (const item of detalle) {
-            await client.query(
-                `INSERT INTO detalle_pedidos (pedido_id, producto_id, cantidad, precio_unitario)
-         VALUES ($1, $2, $3, $4)`,
-                [pedido.id, item.producto_id, item.cantidad, item.precio_unitario]
-            );
-        }
-
-        await client.query("COMMIT");
 
         return res.json({
             ok: true,
-            pedido,
+            external_reference,
             subtotal,
             delivery,
             total,
+            message: "Checkout intent creado. Procede al pago.",
         });
     } catch (err) {
-        await client.query("ROLLBACK");
         console.error(err);
-        return res.status(500).json({ ok: false, message: "Error creando pedido." });
-    } finally {
-        client.release();
+        return res.status(500).json({
+            ok: false,
+            message: "Error creando checkout intent.",
+        });
     }
 }
