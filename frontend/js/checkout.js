@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const r = await fetch("http://localhost:3000/api/checkout/order", {
+            const r = await fetch("/api/checkout/order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
